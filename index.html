@@ -1,13 +1,28 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="/CSS/style.css" />
+    <link rel="stylesheet" href="./CSS/style.css" />
     <title>Buscador de series</title>
   </head>
   <body>
-    <script src="/JS/main.js"></script>
+    <section class="searchContainer">
+      <h1 class="title">Busca tus series favoritas</h1>
+      <form method="GET">
+        <input
+          class="input js-input"
+          type="text"
+          placeholder="Introduce la serie"
+        />
+        <button class="button js-button">Buscar</button>
+      </form>
+    </section>
+    <section class="containerFavorites js-favorites">
+      <h2 class="subtitle1">Mis series favoritas</h2>
+    </section>
+    <section class="containerSeries js-series"></section>
+    <script src="./JS/main.js"></script>
   </body>
 </html>
