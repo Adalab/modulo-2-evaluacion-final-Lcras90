@@ -1,11 +1,8 @@
-let series = {
-  name: "",
-  image: "",
-};
+let favoriteSeries = [];
 let seriesContainer = document.querySelector(".js-series");
 let inputText = document.querySelector(".js-input");
 let button = document.querySelector(".js-button");
-let addToFavorites = document.querySelector(".js-favorites");
+let favorites = document.querySelector(".js-favorites");
 let apiResult = [];
 
 //Función reusable para pintar la lista de series. Si tiene imagen que la pinte si no, que ponga la otra
@@ -19,7 +16,7 @@ function handlerPaint(array) {
       content += `<li class="js-li list-element"> <img class="img" src="https://via.placeholder.com/210x295/ffffff/666666/?text=TV"> ${serie.show.name} </li>`;
     }
   });
-  seriesContainer.innerHTML = `<ul> ${content}</ul>`;
+  seriesContainer.innerHTML = `<ul class="js-ul"> ${content}</ul>`;
   listenClickFavorites(); //aquí llamamos a listenClick (4)
 }
 
@@ -65,6 +62,18 @@ function handlerCheck(evt) {
   let clicked = evt.currentTarget;
   clicked.classList.toggle("list-element");
   clicked.classList.toggle("list-element2");
+  addToFavorites();
+}
+//5) Función para que se añada a favoritos
+//Recorremos el ul para añadir las series favoritas con las clase list-element2 se metan en nuestro array favoriteSeries
+function addToFavorites() {
+  let liSerie = document.querySelector(".js-li");
+  for (let i = 0; i < liElement.length; i++) {
+    if (liSerie.classList.contains("list-element2")) {
+      favoriteSeries.push({ name: "${serie.name}", image: "${serie.image}" });
+      console.log(favoriteSeries);
+    }
+  }
 }
 
 button.addEventListener("click", comprobationCache);
