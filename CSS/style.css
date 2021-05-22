@@ -1,0 +1,20 @@
+.list-element {
+  width: 200px;
+  height: 280px;
+  background-color: aqua;
+  margin-bottom: 10px;
+  list-style: none;
+}
+.list-element2 {
+  background-color: aquamarine;
+  color: aliceblue;
+  list-style: none;
+  width: 200px;
+  height: 280px;
+  margin-bottom: 10px;
+}
+.img {
+  width: 180px;
+  height: 230px;
+  padding: 10px;
+}
