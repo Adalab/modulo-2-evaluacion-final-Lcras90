@@ -5,8 +5,8 @@ let series = {
 let seriesContainer = document.querySelector(".js-series");
 let inputText = document.querySelector(".js-input");
 let button = document.querySelector(".js-button");
+let addToFavorites = document.querySelector(".js-favorites");
 let apiResult = [];
-let favourites = document.querySelector(".js-favorites");
 
 //Función reusable para pintar la lista de series. Si tiene imagen que la pinte si no, que ponga la otra
 // CAMBIAR INNER y esas cositas
@@ -20,7 +20,7 @@ function handlerPaint(array) {
     }
   });
   seriesContainer.innerHTML = `<ul> ${content}</ul>`;
-  listenClick();
+  listenClickFavorites(); //aquí llamamos a listenClick (4)
 }
 
 //1) Si está en el Local Storage lo coge y lo mete en apiResult
@@ -54,15 +54,15 @@ function comprobationCache(event) {
   }
 }
 //4)Función par seleccionar hacer click en las series
-function listenClick() {
+function listenClickFavorites() {
   const liElement = document.querySelectorAll(".js-li");
   for (let i = 0; i < liElement.length; i++) {
     liElement[i].addEventListener("click", handlerCheck);
   }
 }
-//Función para quitar y poner el fondo
+//Función para quitar y poner el fondo)
 function handlerCheck(evt) {
-  let clicked = evt.target;
+  let clicked = evt.currentTarget;
   clicked.classList.toggle("list-element");
   clicked.classList.toggle("list-element2");
 }
