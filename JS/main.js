@@ -10,19 +10,20 @@ let apiResult = [];
 // CAMBIAR INNER y esas cositas
 function handlerPaint(array) {
   let content = "";
+  totalSeries = [];
   array.forEach(function (serie) {
     if (serie.show.image) {
       content += `<li class="js-li list-element"> <img class="img"  src="${serie.show.image.medium}"> ${serie.show.name} </li>`;
     } else {
       content += `<li class="js-li list-element"> <img class="img" src="https://via.placeholder.com/210x295/ffffff/666666/?text=TV"> ${serie.show.name} </li>`;
     }
-    pushSeriestoObject(serie);
+    pushSeriestoObject(serie); //llamamos aquí a función(2b)
   });
   seriesContainer.innerHTML = `<ul"> ${content}</ul>`;
   listenClickFavorites(); //Llamamos aquí a la función (4)
 }
 
-//FUNCIÓN PARA  Pushear los datos al array TOTALSERIES.
+//(2b)FUNCIÓN PARA  Pushear los datos al array TOTALSERIES.
 function pushSeriestoObject(serie) {
   if (serie.show.image) {
     totalSeries.push({
@@ -85,13 +86,14 @@ function handlerCheckFavorites(evt, i) {
     name: `${totalSeries[i].name}`,
     image: `${totalSeries[i].image} `,
   });
-  paintFavorites(i);
+  paintFavorites();
 }
 //6) Función para pintar favoritos le ponemos el partámetro "i" para que sepa a qué nos referimos.
-function paintFavorites(i) {
+function paintFavorites() {
   let content2 = "";
-  content2 += `<li class="js-li list-element"> <img class="img"  src="${favoriteSeries[i].image}"> ${favoriteSeries[i].name} </li>`;
+  for (let i = 0; i < favoriteSeries.length; i++) {
+    content2 = `<li class=""> <img class="img"  src="${favoriteSeries[i].image}"> ${favoriteSeries[i].name} </li>`;
+  }
   favorites.innerHTML += `<ul"> ${content2}</ul>`;
 }
-
 button.addEventListener("click", comprobationCache);
