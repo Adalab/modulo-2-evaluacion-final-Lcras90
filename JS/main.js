@@ -16,13 +16,25 @@ function handlerPaint(array) {
     } else {
       content += `<li class="js-li list-element"> <img class="img" src="https://via.placeholder.com/210x295/ffffff/666666/?text=TV"> ${serie.show.name} </li>`;
     }
+    pushSeriestoObject(serie);
+  });
+  seriesContainer.innerHTML = `<ul"> ${content}</ul>`;
+  listenClickFavorites(); //Llamamos aquí a la función (4)
+}
+
+//FUNCIÓN PARA  Pushear los datos al array TOTALSERIES.
+function pushSeriestoObject(serie) {
+  if (serie.show.image) {
     totalSeries.push({
       name: `${serie.show.name}`,
       image: `${serie.show.image.medium}`,
     });
-  });
-  seriesContainer.innerHTML = `<ul"> ${content}</ul>`;
-  listenClickFavorites(); //Llamamos aquí a la función (4)
+  } else {
+    totalSeries.push({
+      name: `${serie.show.name}`,
+      image: `https://via.placeholder.com/210x295/ffffff/666666/?text=TV`,
+    });
+  }
 }
 
 //1) Si está en el Local Storage lo coge y lo mete en apiResult
@@ -60,12 +72,12 @@ function listenClickFavorites() {
   const liElement = document.querySelectorAll(".js-li");
   for (let i = 0; i < liElement.length; i++) {
     liElement[i].addEventListener("click", function (event) {
-      handlerCheck(event, i); //Ponemos el parámetro i para llegar al indice en la función siquiente
+      handlerCheckFavorites(event, i); //Ponemos el parámetro i para llegar al indice en la función siquiente (5)
     });
   }
 }
-//Función para quitar y poner el fondo y añadir las series clicadas a la array de objetos favoritos
-function handlerCheck(evt, i) {
+// 5) Función para quitar y poner el fondo y añadir las series clicadas a la array de objetos favoritos
+function handlerCheckFavorites(evt, i) {
   let clicked = evt.currentTarget;
   clicked.classList.toggle("list-element");
   clicked.classList.toggle("list-element2");
@@ -73,7 +85,13 @@ function handlerCheck(evt, i) {
     name: `${totalSeries[i].name}`,
     image: `${totalSeries[i].image} `,
   });
-  console.log(favoriteSeries);
+  paintFavorites(i);
+}
+//6) Función para pintar favoritos le ponemos el partámetro "i" para que sepa a qué nos referimos.
+function paintFavorites(i) {
+  let content2 = "";
+  content2 += `<li class="js-li list-element"> <img class="img"  src="${favoriteSeries[i].image}"> ${favoriteSeries[i].name} </li>`;
+  favorites.innerHTML += `<ul"> ${content2}</ul>`;
 }
 
 button.addEventListener("click", comprobationCache);
