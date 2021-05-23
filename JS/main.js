@@ -38,10 +38,19 @@ function pushSeriestoObject(serie) {
   }
 }
 
-//1) Si está en el Local Storage lo coge y lo mete en apiResult
+//1) Si está en el Local Storage lo coge y lo mete en apiResult. Si está en favoritos lo coge y lo pinta
 if (localStorage.getItem("apiResult")) {
   apiResult = JSON.parse(localStorage.getItem("apiResult"));
 }
+if (localStorage.getItem("favoriteSeries")) {
+  favoriteSeries = JSON.parse(localStorage.getItem("favoriteSeries"));
+  let content2 = "";
+  for (let i = 0; i < favoriteSeries.length; i++) {
+    content2 += `<li class="js-li list-element"> <img class="img"  src="${favoriteSeries[i].image}"> ${favoriteSeries[i].name} </li>`;
+  }
+  favorites.innerHTML += `<ul"> ${content2}</ul>`;
+}
+
 //2) Función para coger el valor del input para extraer los objetos de la API, se lo pedimos a la API
 
 function result() {
@@ -56,7 +65,7 @@ function result() {
       localStorage.setItem("apiResult", JSON.stringify(apiResult)); //Si no estaba en caché lo añadimos
     });
 }
-//3) Función para comprobar si está en el caché o no. Llamamos a la que nos extrae el valor del input y la que nos pinta las cositas.
+//3) Función para comprobar si está en el caché o no. Si la hemos buscado o no para no tirar se la API. Llamamos a la que nos extrae el valor del input y la que nos pinta las cositas.
 function comprobationCache(event) {
   event.preventDefault();
   let cachedResult = apiResult.find(
@@ -87,13 +96,15 @@ function handlerCheckFavorites(evt, i) {
     image: `${totalSeries[i].image} `,
   });
   paintFavorites();
+  localStorage.setItem("favoriteSeries", JSON.stringify(favoriteSeries));
 }
 //6) Función para pintar favoritos le ponemos el partámetro "i" para que sepa a qué nos referimos.
 function paintFavorites() {
   let content2 = "";
   for (let i = 0; i < favoriteSeries.length; i++) {
-    content2 = `<li class=""> <img class="img"  src="${favoriteSeries[i].image}"> ${favoriteSeries[i].name} </li>`;
+    content2 = `<li class="js-li list-element"> <img class="img"  src="${favoriteSeries[i].image}"> ${favoriteSeries[i].name} </li>`;
   }
+
   favorites.innerHTML += `<ul"> ${content2}</ul>`;
 }
 button.addEventListener("click", comprobationCache);
