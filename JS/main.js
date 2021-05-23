@@ -1,4 +1,5 @@
 let favoriteSeries = [];
+let totalSeries = []; //Guardamos todas las series que buscamos para después poder selecionar las favoritas
 let seriesContainer = document.querySelector(".js-series");
 let inputText = document.querySelector(".js-input");
 let button = document.querySelector(".js-button");
@@ -15,9 +16,13 @@ function handlerPaint(array) {
     } else {
       content += `<li class="js-li list-element"> <img class="img" src="https://via.placeholder.com/210x295/ffffff/666666/?text=TV"> ${serie.show.name} </li>`;
     }
+    totalSeries.push({
+      name: `${serie.show.name}`,
+      image: `${serie.show.image.medium}`,
+    });
   });
-  seriesContainer.innerHTML = `<ul class="js-ul"> ${content}</ul>`;
-  listenClickFavorites(); //aquí llamamos a listenClick (4)
+  seriesContainer.innerHTML = `<ul"> ${content}</ul>`;
+  listenClickFavorites(); //Llamamos aquí a la función (4)
 }
 
 //1) Si está en el Local Storage lo coge y lo mete en apiResult
@@ -54,26 +59,21 @@ function comprobationCache(event) {
 function listenClickFavorites() {
   const liElement = document.querySelectorAll(".js-li");
   for (let i = 0; i < liElement.length; i++) {
-    liElement[i].addEventListener("click", handlerCheck);
+    liElement[i].addEventListener("click", function (event) {
+      handlerCheck(event, i); //Ponemos el parámetro i para llegar al indice en la función siquiente
+    });
   }
 }
-//Función para quitar y poner el fondo)
-function handlerCheck(evt) {
+//Función para quitar y poner el fondo y añadir las series clicadas a la array de objetos favoritos
+function handlerCheck(evt, i) {
   let clicked = evt.currentTarget;
   clicked.classList.toggle("list-element");
   clicked.classList.toggle("list-element2");
-  addToFavorites();
-}
-//5) Función para que se añada a favoritos
-//Recorremos el ul para añadir las series favoritas con las clase list-element2 se metan en nuestro array favoriteSeries
-function addToFavorites() {
-  let liSerie = document.querySelector(".js-li");
-  for (let i = 0; i < liElement.length; i++) {
-    if (liSerie.classList.contains("list-element2")) {
-      favoriteSeries.push({ name: "${serie.name}", image: "${serie.image}" });
-      console.log(favoriteSeries);
-    }
-  }
+  favoriteSeries.push({
+    name: `${totalSeries[i].name}`,
+    image: `${totalSeries[i].image} `,
+  });
+  console.log(favoriteSeries);
 }
 
 button.addEventListener("click", comprobationCache);
