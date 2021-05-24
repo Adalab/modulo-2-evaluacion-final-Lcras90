@@ -23,7 +23,7 @@ function handlerPaint(array) {
   listenClickFavorites(); //Llamamos aquí a la función (4)
 }
 
-//(2b)FUNCIÓN PARA  Pushear los datos al array TOTALSERIES.
+//(3b)FUNCIÓN PARA  Pushear los datos al array TOTALSERIES.
 function pushSeriestoObject(serie) {
   if (serie.show.image) {
     totalSeries.push({
@@ -44,17 +44,18 @@ if (localStorage.getItem("apiResult")) {
 }
 if (localStorage.getItem("favoriteSeries")) {
   favoriteSeries = JSON.parse(localStorage.getItem("favoriteSeries"));
-  let content2 = "";
-  for (let i = 0; i < favoriteSeries.length; i++) {
-    content2 += `<li class="js-li list-element"> <img class="img"  src="${favoriteSeries[i].image}"> ${favoriteSeries[i].name} </li>`;
-  }
-  favorites.innerHTML += `<ul"> ${content2}</ul>`;
+  paintFavorites();
+  // let content2 = "";
+  // for (let i = 0; i < favoriteSeries.length; i++) {
+  //   content2 += `<li class="list-element"> <img class="img"  src="${favoriteSeries[i].image}"> ${favoriteSeries[i].name} </li>`;
+  // }
+  // favorites.innerHTML = `<ul"> ${content2}</ul>`;
 }
 
 //2) Función para coger el valor del input para extraer los objetos de la API, se lo pedimos a la API
 
 function result() {
-  fetch(`http://api.tvmaze.com/search/shows?q=${inputText.value}`)
+  fetch(`://api.tvmaze.com/search/shows?q=${inputText.value}`)
     .then((response) => response.json())
     .then((data) => {
       handlerPaint(data);
@@ -102,9 +103,9 @@ function handlerCheckFavorites(evt, i) {
 function paintFavorites() {
   let content2 = "";
   for (let i = 0; i < favoriteSeries.length; i++) {
-    content2 = `<li class="js-li list-element"> <img class="img"  src="${favoriteSeries[i].image}"> ${favoriteSeries[i].name} </li>`;
+    content2 += `<li class="list-element"> <img class="img"  src="${favoriteSeries[i].image}"> ${favoriteSeries[i].name} </li>`;
   }
 
-  favorites.innerHTML += `<ul"> ${content2}</ul>`;
+  favorites.innerHTML = `<ul>${content2}</ul>`;
 }
 button.addEventListener("click", comprobationCache);
