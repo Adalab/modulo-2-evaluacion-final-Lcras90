@@ -1,7 +1,53 @@
-.containerFavorites {
-  border: black 2px solid;
+.bigcontainer {
+  display: flex;
+  flex-direction: row;
+  width: 100vw;
+  height: 100vh;
+  margin-top: 50px;
 }
 
+.containerSeries {
+  order: 1;
+}
+.listContainer {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  width: 80vw;
+  height: 100vh;
+}
+.list-element {
+  width: 200px;
+  height: 280px;
+  background-color: aqua;
+  margin-bottom: 10px;
+  list-style: none;
+}
+.list-element2 {
+  background-color: aquamarine;
+  color: aliceblue;
+  list-style: none;
+  width: 200px;
+  height: 280px;
+  margin-bottom: 10px;
+}
+.containerFavorites {
+  border: black 2px solid;
+  order: 0;
+}
+.favoritesContent {
+  padding-left: 20px;
+  padding-right: 20px;
+}
+.list-favorites {
+  width: 200px;
+  height: 290px;
+  background-color: white;
+  list-style: none;
+}
+.buttonXstyle {
+  border-radius: 25px;
+  background-color: rgb(228, 78, 78);
+}
 .list-element {
   width: 200px;
   height: 280px;

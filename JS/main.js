@@ -19,7 +19,7 @@ function handlerPaint(array) {
     }
     pushSeriestoObject(serie); //llamamos aquí a función(2b)
   });
-  seriesContainer.innerHTML = `<ul"> ${content}</ul>`;
+  seriesContainer.innerHTML = `<ul class="listContainer"> ${content}</ul>`;
   listenClickFavorites(); //Llamamos aquí a la función (4)
 }
 
@@ -45,6 +45,7 @@ if (localStorage.getItem("apiResult")) {
 if (localStorage.getItem("favoriteSeries")) {
   favoriteSeries = JSON.parse(localStorage.getItem("favoriteSeries"));
   paintFavorites();
+  onClickDelete();
 }
 
 //2) Función para coger el valor del input para extraer los objetos de la API, se lo pedimos a la API
@@ -89,6 +90,7 @@ function handlerCheckFavorites(evt, i) {
   clicked.classList.toggle("list-element2");
   saveSeriesNoRepeat(i);
   paintFavorites();
+  onClickDelete();
 }
 
 //5b Función para que no se repitan las series cuando las guardes
@@ -109,9 +111,9 @@ function saveSeriesNoRepeat(i) {
 function paintFavorites() {
   let content2 = "";
   for (let i = 0; i < favoriteSeries.length; i++) {
-    content2 += `<li class="list-element js-favoriteli"> <button class="js-x">X</button><img class="img"  src="${favoriteSeries[i].image}"> ${favoriteSeries[i].name}   </li>`;
+    content2 += `<li class="list-favorites js-favoriteli"> <button class="js-x buttonXstyle">X</button><img class="img"  src="${favoriteSeries[i].image}"> ${favoriteSeries[i].name}   </li>`;
   }
-  favorites.innerHTML = `<ul>${content2}</ul>`;
+  favorites.innerHTML = `<ul class="favoritesContent">${content2}</ul>`;
 }
 button.addEventListener("click", comprobationCache);
 
@@ -129,14 +131,14 @@ deleteAllButton();
 
 //Botón de X a cada una de las series favoritas.
 
-function deleteSerie() {
+function onClickDelete() {
   let xButtons = document.querySelectorAll(".js-x");
   xButtons.forEach(function (button, i) {
     button.addEventListener("click", function () {
       favoriteSeries.splice(i, 1);
-      localStorage.setItem("favoriteSeries", JSON.stringify(favoriteSeries[i]));
+      localStorage.setItem("favoriteSeries", JSON.stringify(favoriteSeries));
       paintFavorites();
+      onClickDelete();
     });
   });
 }
-deleteSerie();
