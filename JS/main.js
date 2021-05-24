@@ -129,16 +129,26 @@ function deleteAllButton() {
 }
 deleteAllButton();
 
-//Botón de X a cada una de las series favoritas.
+//Botón de X a cada una de las series favoritas en muchas funcioncitas
 
 function onClickDelete() {
   let xButtons = document.querySelectorAll(".js-x");
-  xButtons.forEach(function (button, i) {
+  xButtons.forEach(function (button, index) {
     button.addEventListener("click", function () {
-      favoriteSeries.splice(i, 1);
-      localStorage.setItem("favoriteSeries", JSON.stringify(favoriteSeries));
-      paintFavorites();
-      onClickDelete();
+      clicktoDeleteFav(index);
     });
   });
 }
+
+function clicktoDeleteFav(index) {
+  deleteFavorite(index);
+  paintFavorites();
+  onClickDelete();
+}
+
+function deleteFavorite(index) {
+  favoriteSeries.splice(index, 1);
+  localStorage.setItem("favoriteSeries", JSON.stringify(favoriteSeries));
+}
+
+//Todo va en un archivo para el autocompletado.

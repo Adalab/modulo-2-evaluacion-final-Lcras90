@@ -1,8 +1,20 @@
+.body {
+  margin: 0px;
+}
+
+.header {
+  background-color: #16a085;
+  padding-bottom: 30px;
+  width: 100vw;
+}
+.title {
+  color: #f1c40f;
+  text-align: center;
+}
+
 .bigcontainer {
   display: flex;
-  flex-direction: row;
-  width: 100vw;
-  height: 100vh;
+  flex-direction: column;
   margin-top: 50px;
 }
 
@@ -10,15 +22,14 @@
   order: 1;
 }
 .listContainer {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  width: 80vw;
-  height: 100vh;
+  /* display: grid;
+  grid-template-columns: 1fr 1fr; para tablet y ordenador */
 }
 .list-element {
   width: 200px;
   height: 280px;
   background-color: aqua;
+
   margin-bottom: 10px;
   list-style: none;
 }
@@ -31,16 +42,15 @@
   margin-bottom: 10px;
 }
 .containerFavorites {
-  border: black 2px solid;
-  order: 0;
+  border-bottom: black 2px solid;
 }
 .favoritesContent {
   padding-left: 20px;
   padding-right: 20px;
 }
 .list-favorites {
-  width: 200px;
-  height: 290px;
+  /* width: 200px;
+  height: 290px; */
   background-color: white;
   list-style: none;
 }
@@ -48,21 +58,7 @@
   border-radius: 25px;
   background-color: rgb(228, 78, 78);
 }
-.list-element {
-  width: 200px;
-  height: 280px;
-  background-color: aqua;
-  margin-bottom: 10px;
-  list-style: none;
-}
-.list-element2 {
-  background-color: aquamarine;
-  color: aliceblue;
-  list-style: none;
-  width: 200px;
-  height: 280px;
-  margin-bottom: 10px;
-}
+
 .img {
   width: 180px;
   height: 230px;
