@@ -109,7 +109,7 @@ function saveSeriesNoRepeat(i) {
 function paintFavorites() {
   let content2 = "";
   for (let i = 0; i < favoriteSeries.length; i++) {
-    content2 += `<li class="list-element"> <img class="img"  src="${favoriteSeries[i].image}"> ${favoriteSeries[i].name} </li>`;
+    content2 += `<li class="list-element js-favoriteli"> <button class="js-x">X</button><img class="img"  src="${favoriteSeries[i].image}"> ${favoriteSeries[i].name}   </li>`;
   }
   favorites.innerHTML = `<ul>${content2}</ul>`;
 }
@@ -117,7 +117,7 @@ button.addEventListener("click", comprobationCache);
 
 //Botón de Reset: Seleccionamos el botón de reset, le pasamos la array de favoritos vacía y borramos en el localStorage
 
-function deleteButton() {
+function deleteAllButton() {
   let deleteAllButton = document.querySelector(".js-button-reset");
   deleteAllButton.addEventListener("click", function () {
     favoriteSeries = [];
@@ -125,4 +125,18 @@ function deleteButton() {
     paintFavorites();
   });
 }
-deleteButton();
+deleteAllButton();
+
+//Botón de X a cada una de las series favoritas.
+
+function deleteSerie() {
+  let xButtons = document.querySelectorAll(".js-x");
+  xButtons.forEach(function (button, i) {
+    button.addEventListener("click", function () {
+      favoriteSeries.splice(i, 1);
+      localStorage.setItem("favoriteSeries", JSON.stringify(favoriteSeries[i]));
+      paintFavorites();
+    });
+  });
+}
+deleteSerie();
