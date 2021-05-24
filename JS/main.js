@@ -87,7 +87,7 @@ function handlerCheckFavorites(evt, i) {
   let clicked = evt.currentTarget;
   clicked.classList.toggle("list-element");
   clicked.classList.toggle("list-element2");
-  saveSeriesNoRepeat();
+  saveSeriesNoRepeat(i);
   paintFavorites();
 }
 
@@ -105,13 +105,24 @@ function saveSeriesNoRepeat(i) {
   }
 }
 
-//6) Función para pintar favoritos le ponemos el partámetro "i" para que sepa a qué nos referimos.
+//6) Función para pintar favoritos le ponemos el partámetro "i" para que sepa a qué nos referimos.+ Meter un botón para borrar
 function paintFavorites() {
   let content2 = "";
   for (let i = 0; i < favoriteSeries.length; i++) {
     content2 += `<li class="list-element"> <img class="img"  src="${favoriteSeries[i].image}"> ${favoriteSeries[i].name} </li>`;
   }
-
   favorites.innerHTML = `<ul>${content2}</ul>`;
 }
 button.addEventListener("click", comprobationCache);
+
+//Botón de Reset: Seleccionamos el botón de reset, le pasamos la array de favoritos vacía y borramos en el localStorage
+
+function deleteButton() {
+  let deleteAllButton = document.querySelector(".js-button-reset");
+  deleteAllButton.addEventListener("click", function () {
+    favoriteSeries = [];
+    localStorage.removeItem("favoriteSeries");
+    paintFavorites();
+  });
+}
+deleteButton();
