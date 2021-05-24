@@ -45,11 +45,6 @@ if (localStorage.getItem("apiResult")) {
 if (localStorage.getItem("favoriteSeries")) {
   favoriteSeries = JSON.parse(localStorage.getItem("favoriteSeries"));
   paintFavorites();
-  // let content2 = "";
-  // for (let i = 0; i < favoriteSeries.length; i++) {
-  //   content2 += `<li class="list-element"> <img class="img"  src="${favoriteSeries[i].image}"> ${favoriteSeries[i].name} </li>`;
-  // }
-  // favorites.innerHTML = `<ul"> ${content2}</ul>`;
 }
 
 //2) Función para coger el valor del input para extraer los objetos de la API, se lo pedimos a la API
@@ -92,13 +87,24 @@ function handlerCheckFavorites(evt, i) {
   let clicked = evt.currentTarget;
   clicked.classList.toggle("list-element");
   clicked.classList.toggle("list-element2");
-  favoriteSeries.push({
-    name: `${totalSeries[i].name}`,
-    image: `${totalSeries[i].image} `,
-  });
+  saveSeriesNoRepeat();
   paintFavorites();
-  localStorage.setItem("favoriteSeries", JSON.stringify(favoriteSeries));
 }
+
+//5b Función para que no se repitan las series cuando las guardes
+function saveSeriesNoRepeat(i) {
+  let favoritesSeriesSaved = favoriteSeries.find(
+    (item) => item.name === totalSeries[i].name
+  );
+  if (!favoritesSeriesSaved) {
+    favoriteSeries.push({
+      name: `${totalSeries[i].name}`,
+      image: `${totalSeries[i].image} `,
+    });
+    localStorage.setItem("favoriteSeries", JSON.stringify(favoriteSeries));
+  }
+}
+
 //6) Función para pintar favoritos le ponemos el partámetro "i" para que sepa a qué nos referimos.
 function paintFavorites() {
   let content2 = "";
