@@ -1,66 +1,206 @@
 .body {
   margin: 0px;
+  background: cover;
+  background-image: url(https://image.freepik.com/vector-gratis/fondo-mandalas-todo-color_1159-907.jpg);
 }
 
 .header {
-  background-color: #16a085;
+  background-color: #1c215a;
   padding-bottom: 30px;
   width: 100vw;
 }
 .title {
-  color: #f1c40f;
+  color: white;
   text-align: center;
+  font-size: 28px;
+  padding-bottom: 10px;
+  padding-top: 10px;
+  font-weight: bold;
+  font-family: "Gloria Hallelujah", cursive;
+}
+.input {
+  padding-left: 5px;
+  margin-left: 60px;
+  height: 25px;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.5) inset,
+    0 1px 3px rgba(0, 0, 0, 0.2);
+}
+.button {
+  padding: 5px;
+  border-radius: 4px;
+  font-size: 12px;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.5);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.5) inset,
+    0 1px 3px rgba(0, 0, 0, 0.2);
 }
 
 .bigcontainer {
   display: flex;
   flex-direction: column;
-  margin-top: 50px;
+  margin-top: 10px;
 }
 
 .containerSeries {
   order: 1;
 }
-.listContainer {
-  /* display: grid;
-  grid-template-columns: 1fr 1fr; para tablet y ordenador */
+.titlecontainer {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-auto-flow: row;
 }
-.list-element {
+.subtitle1 {
+  font-family: "Mountains of Christmas";
+  font-size: 18px;
+  font-weight: bold;
+  color: #f34b4d;
   width: 200px;
-  height: 280px;
-  background-color: aqua;
+  background-color: white;
+  border: 1px #1c215a solid;
+  border-radius: 10px;
+  text-align: center;
+  margin: 20px;
+  padding: 5px 0px;
+  font-family: "Gloria Hallelujah", cursive;
+}
+.button-reset {
+  width: 55px;
+  text-align: center;
+  margin: auto;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.5);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.5) inset,
+    0 1px 3px rgba(0, 0, 0, 0.2);
+}
 
-  margin-bottom: 10px;
-  list-style: none;
-}
-.list-element2 {
-  background-color: aquamarine;
-  color: aliceblue;
-  list-style: none;
-  width: 200px;
-  height: 280px;
-  margin-bottom: 10px;
-}
 .containerFavorites {
-  border-bottom: black 2px solid;
+  border-bottom: #1c215a 5px dotted;
 }
 .favoritesContent {
-  padding-left: 20px;
-  padding-right: 20px;
+  margin: auto;
 }
 .list-favorites {
-  /* width: 200px;
-  height: 290px; */
-  background-color: white;
   list-style: none;
+  margin-left: 40px;
+  margin-bottom: 10px;
 }
 .buttonXstyle {
-  border-radius: 25px;
-  background-color: rgb(228, 78, 78);
+  border-radius: 50%;
+  border: #1c215a solid;
+  background-color: white;
+  font-weight: bold;
+  color: red;
+  position: absolute;
+  display: block;
+}
+.img {
+  width: 160px;
+  height: 230px;
+  border: 3px #1c215a solid;
+  margin-bottom: 2px;
+}
+.seriename {
+  border: #1c215a solid 1px;
+  background-color: white;
+  border-radius: 20px;
+  width: 160px;
+  font-weight: bold;
+  text-align: center;
+  color: #1c215a;
+  font-family: "Gloria Hallelujah";
+}
+.listContainer {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+.list-element {
+  margin-left: 20px;
+  width: 160px;
+  height: 250px;
+  margin-bottom: 25px;
+  list-style: none;
+}
+.subtitle2 {
+  font-family: "Gloria Hallelujah", cursive;
+  font-size: 18px;
+  font-weight: bold;
+  width: 200px;
+  color: #f34b4d;
+  background-color: white;
+  border: 1px #1c215a solid;
+  border-radius: 10px;
+  text-align: center;
+  margin: 20px;
+  padding: 5px 0px;
+}
+.list-element2 {
+  border: 5px #ffff00 groove;
+  color: aliceblue;
+  list-style: none;
+  margin-left: 20px;
+  width: 168px;
+  height: 250px;
+  margin-bottom: 25px;
 }
 
-.img {
-  width: 180px;
-  height: 230px;
-  padding: 10px;
+@media (min-width: 768px) {
+  .header {
+    display: flex;
+    justify-content: space-around;
+  }
+  .title {
+    font-size: 32px;
+    padding-top: 30px;
+  }
+  .input {
+    margin-top: 30px;
+    width: 230px;
+  }
+  .bigcontainer {
+    display: grid;
+    grid-template-columns: 250px 1fr;
+    margin-top: 10px;
+  }
+  .containerFavorites {
+    border-right: #1c215a 5px dotted;
+    border-bottom: none;
+    grid-column: 1/1;
+  }
+  .titlecontainer {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .button-reset {
+    order: -1;
+    margin-left: 40px;
+    margin-bottom: 10px;
+  }
+  .subtitle1 {
+    font-size: 20px;
+    width: 160px;
+    padding: 5px;
+    margin-bottom: 20px;
+    margin-left: 40px;
+  }
+  .seriename {
+    font-size: 18px;
+  }
+  .containerSeries {
+    margin-left: 40px;
+  }
+  .listContainer {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+  .list-element {
+    margin-bottom: 35px;
+  }
+  .subtitle2 {
+    font-size: 20px;
+    width: 220px;
+  }
+}
+@media (min-width: 1024px) {
+  .listContainer {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
 }

@@ -13,11 +13,11 @@ function handlerPaint(array) {
   totalSeries = [];
   array.forEach(function (serie) {
     if (serie.show.image) {
-      content += `<li class="js-li list-element"> <img class="img"  src="${serie.show.image.medium}"> ${serie.show.name} </li>`;
+      content += `<li class="js-li list-element"> <img class="img"  src="${serie.show.image.medium}"> <h3 class="seriename">${serie.show.name}</h3></li>`;
     } else {
-      content += `<li class="js-li list-element"> <img class="img" src="https://via.placeholder.com/210x295/ffffff/666666/?text=TV"> ${serie.show.name} </li>`;
+      content += `<li class="js-li list-element"> <img class="img" src="https://via.placeholder.com/210x295/ffffff/666666/?text=TV"> <h3 class="seriename">${serie.show.name}</h3> </li>`;
     }
-    pushSeriestoObject(serie); //llamamos aquí a función(2b)
+    pushSeriestoObject(serie); //llamamos aquí a función(3b)
   });
   seriesContainer.innerHTML = `<ul class="listContainer"> ${content}</ul>`;
   listenClickFavorites(); //Llamamos aquí a la función (4)
@@ -111,7 +111,7 @@ function saveSeriesNoRepeat(i) {
 function paintFavorites() {
   let content2 = "";
   for (let i = 0; i < favoriteSeries.length; i++) {
-    content2 += `<li class="list-favorites js-favoriteli"> <button class="js-x buttonXstyle">X</button><img class="img"  src="${favoriteSeries[i].image}"> ${favoriteSeries[i].name}   </li>`;
+    content2 += `<li class="list-favorites js-favoriteli"> <button class="js-x buttonXstyle">X</button><img class="img"  src="${favoriteSeries[i].image}"> <h3 class="seriename">${favoriteSeries[i].name}</h3>   </li>`;
   }
   favorites.innerHTML = `<ul class="favoritesContent">${content2}</ul>`;
 }
