@@ -55,7 +55,7 @@ if (localStorage.getItem("favoriteSeries")) {
 //2) Función para coger el valor del input para extraer los objetos de la API, se lo pedimos a la API
 
 function result() {
-  fetch(`://api.tvmaze.com/search/shows?q=${inputText.value}`)
+  fetch(`http://api.tvmaze.com/search/shows?q=${inputText.value}`)
     .then((response) => response.json())
     .then((data) => {
       handlerPaint(data);
