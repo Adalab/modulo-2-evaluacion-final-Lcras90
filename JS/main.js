@@ -1,10 +1,10 @@
 let favoriteSeries = [];
-let totalSeries = []; //Guardamos todas las series que buscamos para después poder selecionar las favoritas
+let totalSeries = [];
+let apiResult = [];
 let seriesContainer = document.querySelector(".js-series");
 let inputText = document.querySelector(".js-input");
 let button = document.querySelector(".js-button");
 let favorites = document.querySelector(".js-favorites");
-let apiResult = [];
 
 //1) Si está en el Local Storage lo coge y lo mete en apiResult. Si está en favoritos lo coge y lo pinta
 if (localStorage.getItem("apiResult")) {
