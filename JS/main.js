@@ -16,8 +16,37 @@ if (localStorage.getItem("favoriteSeries")) {
   onClickDelete();
 }
 
-//Función reusable para pintar la lista de series. Si tiene imagen que la pinte si no, que ponga la otra
-// CAMBIAR INNER y esas cositas
+//2) Función para coger el valor del input para extraer los objetos de la API, se lo pedimos a la API
+
+function result() {
+  fetch(`//api.tvmaze.com/search/shows?q=${inputText.value}`)
+    .then((response) => response.json())
+    .then((data) => {
+      handlerPaint(data);
+      apiResult.push({
+        searchValue: inputText.value,
+        results: data,
+      });
+      localStorage.setItem("apiResult", JSON.stringify(apiResult)); //Si no estaba en caché lo añadimos
+    });
+}
+
+//2a)FUNCIÓN PARA  Pushear los datos al array TOTALSERIES.
+function pushSeriestoObject(serie) {
+  if (serie.show.image) {
+    totalSeries.push({
+      name: `${serie.show.name}`,
+      image: `${serie.show.image.medium}`,
+    });
+  } else {
+    totalSeries.push({
+      name: `${serie.show.name}`,
+      image: `https://via.placeholder.com/210x295/ffffff/666666/?text=TV`,
+    });
+  }
+}
+
+// 2b)Función reusable para pintar la lista de series y ver si está marcada en favoritos.
 function handlerPaint(array) {
   let content = "";
   totalSeries = [];
@@ -38,36 +67,7 @@ function handlerPaint(array) {
   listenClickFavorites(); //Llamamos aquí a la función (4)
 }
 
-//(3b)FUNCIÓN PARA  Pushear los datos al array TOTALSERIES.
-function pushSeriestoObject(serie) {
-  if (serie.show.image) {
-    totalSeries.push({
-      name: `${serie.show.name}`,
-      image: `${serie.show.image.medium}`,
-    });
-  } else {
-    totalSeries.push({
-      name: `${serie.show.name}`,
-      image: `https://via.placeholder.com/210x295/ffffff/666666/?text=TV`,
-    });
-  }
-}
-
-//2) Función para coger el valor del input para extraer los objetos de la API, se lo pedimos a la API
-
-function result() {
-  fetch(`//api.tvmaze.com/search/shows?q=${inputText.value}`)
-    .then((response) => response.json())
-    .then((data) => {
-      handlerPaint(data);
-      apiResult.push({
-        searchValue: inputText.value,
-        results: data,
-      });
-      localStorage.setItem("apiResult", JSON.stringify(apiResult)); //Si no estaba en caché lo añadimos
-    });
-}
-//3) Función para comprobar si está en el caché o no. Si la hemos buscado o no para no tirar se la API. Llamamos a la que nos extrae el valor del input y la que nos pinta las cositas.
+//2d) Función para comprobar si está en el caché o no. Si la hemos buscado o no para no tirar se la API. Llamamos a la que nos extrae el valor del input y la que nos pinta las cositas.
 function comprobationCache(event) {
   event.preventDefault();
   let cachedResult = apiResult.find(
@@ -76,19 +76,20 @@ function comprobationCache(event) {
   if (!cachedResult) {
     result();
   } else {
-    handlerPaint(cachedResult.results); //  important el .result porque es un array de objetos, y si no da error
+    handlerPaint(cachedResult.results); //  important el .results porque es un array de objetos, y si no da error.
   }
 }
-//4)Función par seleccionar hacer click en las series
+//3)Función para seleccionar hacer click en las series.
+//Aquí ponemos el evento a los li clicados
 function listenClickFavorites() {
   const liElement = document.querySelectorAll(".js-li");
   for (let i = 0; i < liElement.length; i++) {
     liElement[i].addEventListener("click", function (event) {
-      handlerCheckFavorites(event, i); //Ponemos el parámetro i para llegar al indice en la función siquiente (5)
+      handlerCheckFavorites(event, i); // llamamos a nuestra función pitadora.Ponemos el parámetro i para llegar al indice en la función siquiente (3b)
     });
   }
 }
-// 5) Función para quitar y poner el fondo y añadir las series clicadas a la array de objetos favoritos
+//3a) Función para quitar y poner el fondo y añadir las series clicadas a la array de objetos favoritos
 function handlerCheckFavorites(evt, i) {
   let clicked = evt.currentTarget;
   clicked.classList.toggle("list-element");
@@ -97,8 +98,16 @@ function handlerCheckFavorites(evt, i) {
   paintFavorites();
   onClickDelete();
 }
+//3b) Función para pintar favoritos le ponemos el partámetro "i" para que sepa a qué nos referimos.
+function paintFavorites() {
+  let content2 = "";
+  for (let i = 0; i < favoriteSeries.length; i++) {
+    content2 += `<li class="list-favorites js-favoriteli"> <button class="js-x buttonXstyle">X</button><img class="img"  src="${favoriteSeries[i].image}"> <h3 class="seriename">${favoriteSeries[i].name}</h3>   </li>`;
+  }
+  favorites.innerHTML = `<ul class="favoritesContent">${content2}</ul>`;
+}
 
-//5b Función para que no se repitan las series cuando las guardes
+//4) Función para que no se repitan las series cuando las guardes. Y las metemos en el LS.
 function saveSeriesNoRepeat(i) {
   let favoritesSeriesSaved = favoriteSeries.find(
     (item) => item.name === totalSeries[i].name
@@ -112,17 +121,7 @@ function saveSeriesNoRepeat(i) {
   }
 }
 
-//6) Función para pintar favoritos le ponemos el partámetro "i" para que sepa a qué nos referimos.+ Meter un botón para borrar
-function paintFavorites() {
-  let content2 = "";
-  for (let i = 0; i < favoriteSeries.length; i++) {
-    content2 += `<li class="list-favorites js-favoriteli"> <button class="js-x buttonXstyle">X</button><img class="img"  src="${favoriteSeries[i].image}"> <h3 class="seriename">${favoriteSeries[i].name}</h3>   </li>`;
-  }
-  favorites.innerHTML = `<ul class="favoritesContent">${content2}</ul>`;
-}
-button.addEventListener("click", comprobationCache);
-
-//Botón de Reset: Seleccionamos el botón de reset, le pasamos la array de favoritos vacía y borramos en el localStorage
+//5)Botón de Reset: Seleccionamos el botón de reset, le pasamos la array de favoritos vacía y borramos en el localStorage
 
 function deleteAllButton() {
   let deleteAllButton = document.querySelector(".js-button-reset");
@@ -132,9 +131,10 @@ function deleteAllButton() {
     paintFavorites();
   });
 }
-deleteAllButton();
+deleteAllButton(); //Llamamos a la función.
 
-//Botón de X a cada una de las series favoritas en muchas funcioncitas
+//6 Botón de X a cada una de las series favoritas.
+//Escuchamos el evento sobre los botones X
 
 function onClickDelete() {
   let xButtons = document.querySelectorAll(".js-x");
@@ -144,16 +144,18 @@ function onClickDelete() {
     });
   });
 }
+//6a) Buscamos el índice del objeto clicado y lo eliminamos de favoritos(y LS)
+function deleteFavorite(index) {
+  favoriteSeries.splice(index, 1);
+  localStorage.setItem("favoriteSeries", JSON.stringify(favoriteSeries));
+}
 
+//Cuando borramos algo de favoritos, lo repintamos ya sin el descartado y llamamos de nuevo al evento de nuevo para que vuelva a funcionar.
 function clicktoDeleteFav(index) {
   deleteFavorite(index);
   paintFavorites();
   onClickDelete();
 }
 
-function deleteFavorite(index) {
-  favoriteSeries.splice(index, 1);
-  localStorage.setItem("favoriteSeries", JSON.stringify(favoriteSeries));
-}
-
+button.addEventListener("click", comprobationCache);
 //Todo va en un archivo para el autocompletado.
