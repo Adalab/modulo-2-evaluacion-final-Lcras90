@@ -1,6 +1,6 @@
 # modulo-2-evaluacion-final-Lcras90
 
-##Aplicación para la búsqueda de Series de TV con la API de TVmaze.
+Aplicación para la búsqueda de Series de TV con la API de TVmaze.
 
 La aplicación consta de un campo de texto para escribir la búsqueda y un botón. Además, tenemos un título para la página, y dos subtítulos que pertecen 
 a dos contenedores donde iremos poniendo el listado general de series, y las favoritas con un botón de reset.
