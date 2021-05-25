@@ -11,7 +11,8 @@ hace la petición a la API y la pinta.
 2) Una vez que tenemos el listado de series podemos seleccionar la serie como favorita, sabremos que la hemos clicado, porque el borde cambiará a un amarillo 
 brillante y se colocará en el contenedor de series favoritas.
 
-3) Las series marcadas como favoritas se guardarán en el LS, y aparecerán en su contenedor siempre que recarguemos la página.
+3) Las series marcadas como favoritas se guardarán en el LS, y aparecerán en su contenedor siempre que recarguemos la página. Por mucho que se clique, 
+las series no se duplicarán en el contendor de favoritas. 
 
 4) Si decidimos que la serie ya no nos gusta tanto como para tenerla como favorita, podremos quitarla dándole al boton "x" que tenemos en la esquina superior
 izquierda. Cada vez que eliminemos una serie, también la borraremos de LS para que no vuelva a aparecer al recargar.
