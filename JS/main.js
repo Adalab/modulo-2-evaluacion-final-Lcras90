@@ -6,16 +6,31 @@ let button = document.querySelector(".js-button");
 let favorites = document.querySelector(".js-favorites");
 let apiResult = [];
 
+//1) Si está en el Local Storage lo coge y lo mete en apiResult. Si está en favoritos lo coge y lo pinta
+if (localStorage.getItem("apiResult")) {
+  apiResult = JSON.parse(localStorage.getItem("apiResult"));
+}
+if (localStorage.getItem("favoriteSeries")) {
+  favoriteSeries = JSON.parse(localStorage.getItem("favoriteSeries"));
+  paintFavorites();
+  onClickDelete();
+}
+
 //Función reusable para pintar la lista de series. Si tiene imagen que la pinte si no, que ponga la otra
 // CAMBIAR INNER y esas cositas
 function handlerPaint(array) {
   let content = "";
   totalSeries = [];
   array.forEach(function (serie) {
+    let nameClass = "";
+    let beFavorite = favoriteSeries.find((i) => i.name === serie.show.name);
+    if (beFavorite) {
+      nameClass = "list-element2";
+    }
     if (serie.show.image) {
-      content += `<li class="js-li list-element"> <img class="img"  src="${serie.show.image.medium}"> <h3 class="seriename">${serie.show.name}</h3></li>`;
+      content += `<li class="js-li list-element ${nameClass}"> <img class="img"  src="${serie.show.image.medium}"> <h3 class="seriename">${serie.show.name}</h3></li>`;
     } else {
-      content += `<li class="js-li list-element"> <img class="img" src="https://via.placeholder.com/210x295/ffffff/666666/?text=TV"> <h3 class="seriename">${serie.show.name}</h3> </li>`;
+      content += `<li class="js-li list-element ${nameClass}"> <img class="img" src="https://via.placeholder.com/210x295/ffffff/666666/?text=TV"> <h3 class="seriename">${serie.show.name}</h3> </li>`;
     }
     pushSeriestoObject(serie); //llamamos aquí a función(3b)
   });
@@ -36,16 +51,6 @@ function pushSeriestoObject(serie) {
       image: `https://via.placeholder.com/210x295/ffffff/666666/?text=TV`,
     });
   }
-}
-
-//1) Si está en el Local Storage lo coge y lo mete en apiResult. Si está en favoritos lo coge y lo pinta
-if (localStorage.getItem("apiResult")) {
-  apiResult = JSON.parse(localStorage.getItem("apiResult"));
-}
-if (localStorage.getItem("favoriteSeries")) {
-  favoriteSeries = JSON.parse(localStorage.getItem("favoriteSeries"));
-  paintFavorites();
-  onClickDelete();
 }
 
 //2) Función para coger el valor del input para extraer los objetos de la API, se lo pedimos a la API
